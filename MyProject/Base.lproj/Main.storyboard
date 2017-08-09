@@ -22,6 +22,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game News" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ki4-eP-q5V">
+                                <rect key="frame" x="118" y="72" width="139" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <color key="textColor" red="0.9527851812" green="0.86872103290000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ZC-B1-32n">
                                 <rect key="frame" x="0.0" y="64" width="140" height="603"/>
                                 <subviews>
@@ -34,6 +41,9 @@
                                         <state key="normal" title=" News">
                                             <color key="titleColor" red="0.9527851812" green="0.86872103290000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="dgJ-dE-kja" kind="show" id="rZ0-A0-xOu"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQJ-XR-vv7">
                                         <rect key="frame" x="8" y="8" width="124" height="30"/>
@@ -52,7 +62,6 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.11531693673002051" green="0.0089505845779865034" blue="0.17818052030456855" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="oQJ-XR-vv7" firstAttribute="top" secondItem="9ZC-B1-32n" secondAttribute="top" constant="50" id="0UW-qq-bgb"/>
                                     <constraint firstAttribute="trailing" secondItem="iaZ-ln-V6U" secondAttribute="trailing" constant="34" id="6gO-S0-OYr"/>
                                     <constraint firstAttribute="width" constant="140" id="J8I-u7-VXT"/>
                                     <constraint firstItem="oQJ-XR-vv7" firstAttribute="top" secondItem="9ZC-B1-32n" secondAttribute="top" constant="8" id="clu-o0-SvQ"/>
@@ -90,22 +99,52 @@
             </objects>
             <point key="canvasLocation" x="1056.8" y="123.68815592203899"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Game Post Table View Controller-->
         <scene sceneID="eJ3-0F-xw6">
             <objects>
-                <tableViewController id="dgJ-dE-kja" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="v4L-wT-n7R">
+                <tableViewController id="dgJ-dE-kja" customClass="GamePostTableViewController" customModule="MyProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="600" sectionHeaderHeight="28" sectionFooterHeight="28" id="v4L-wT-n7R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="0.34729618159999998" green="0.02874779496" blue="0.52871192889999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="S2T-4I-HGR">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GamePostTableViewCell" rowHeight="575" id="S2T-4I-HGR" customClass="GamePostTableViewCell" customModule="MyProject" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="575"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S2T-4I-HGR" id="FB5-gL-BbQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="S2T-4I-HGR" id="FB5-gL-BbQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="575"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MNq-3h-ejt">
+                                            <rect key="frame" x="0.0" y="42" width="375" height="533"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WUy-ax-f1d">
+                                            <rect key="frame" x="15" y="323" width="344" height="208"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.34729618159999998" green="0.02874779496" blue="0.52871192889999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <color key="textColor" red="0.9527851812" green="0.86872103290000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="17"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l43-mh-eR7">
+                                            <rect key="frame" x="15" y="13" width="344" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                            <color key="textColor" red="0.9527851812" green="0.86872103290000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.25192374637736836" green="0.019553630742316162" blue="0.3892568210659898" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.34729618159999998" green="0.02874779496" blue="0.52871192889999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="photoImageView" destination="MNq-3h-ejt" id="BZu-v4-Ga9"/>
+                                    <outlet property="textTextView" destination="WUy-ax-f1d" id="ACt-Ba-T3v"/>
+                                    <outlet property="titleLabel" destination="l43-mh-eR7" id="psL-hc-0Pg"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -116,7 +155,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7DI-va-pbc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1468" y="777"/>
+            <point key="canvasLocation" x="1468" y="776.76161919040487"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="yno-TW-aM7">
@@ -145,7 +184,7 @@
                         <color key="tintColor" red="0.1153169367" green="0.0089505845779999996" blue="0.17818052030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="mt8-QO-hYU" firstAttribute="leading" secondItem="rSc-8K-gEQ" secondAttribute="leadingMargin" constant="42" id="1R3-sb-bS8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="mt8-QO-hYU" secondAttribute="trailing" constant="42" id="ZLh-Wh-A1g"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mt8-QO-hYU" secondAttribute="trailing" constant="41" id="ZLh-Wh-A1g"/>
                             <constraint firstItem="mt8-QO-hYU" firstAttribute="top" secondItem="5bb-JD-0A6" secondAttribute="bottom" constant="8" id="vZH-4z-cyS"/>
                         </constraints>
                     </view>
