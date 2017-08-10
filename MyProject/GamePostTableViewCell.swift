@@ -18,6 +18,9 @@ class GamePostTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        print("IM HERE")
+        titleLabel.numberOfLines = 1;
+        titleLabel.adjustsFontSizeToFitWidth = true;
         // Initialization code
     }
 

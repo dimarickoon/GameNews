@@ -12,6 +12,9 @@ class ViewController : UIViewController {
     
     var menuOpened = false
     
+    var smashCounter = 0
+    
+    @IBOutlet weak var smashCounterLabel: UILabel!
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
     
@@ -23,6 +26,19 @@ class ViewController : UIViewController {
         
     }
 
+    @IBAction func smashButtonPressed(_ sender: Any) {
+        smashCounter += 1
+        smashCounterLabel.text = String(smashCounter)
+        smashCounterLabel.textColor = getRandomColor()
+        
+    }
+    
+    func getRandomColor() -> UIColor{
+        var randomRed:CGFloat = CGFloat(drand48())
+        var randomGreen:CGFloat = CGFloat(drand48())
+        var randomBlue:CGFloat = CGFloat(drand48())
+        return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
+    }
     
     @IBAction func openMenu(_ sender: Any) {
         

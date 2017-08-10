@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		94808E3D1F3D08590011CDB3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94808E3C1F3D08590011CDB3 /* DetailViewController.swift */; };
 		94AE42F61F34E6E500F93E7C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE42F51F34E6E500F93E7C /* AppDelegate.swift */; };
 		94AE42F81F34E6E500F93E7C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE42F71F34E6E500F93E7C /* ViewController.swift */; };
 		94AE42FB1F34E6E500F93E7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94AE42F91F34E6E500F93E7C /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		94808E3C1F3D08590011CDB3 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		94AE42F21F34E6E500F93E7C /* MyProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94AE42F51F34E6E500F93E7C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94AE42F71F34E6E500F93E7C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			children = (
 				94AE436B1F3A0F8400F93E7C /* GamePost.swift */,
 				94AE43691F3A0F6C00F93E7C /* GamePostTableViewController.swift */,
+				94808E3C1F3D08590011CDB3 /* DetailViewController.swift */,
 				94AE42F51F34E6E500F93E7C /* AppDelegate.swift */,
 				94AE42F71F34E6E500F93E7C /* ViewController.swift */,
 				94AE43461F3A036C00F93E7C /* GamePostTableViewCell.swift */,
@@ -234,6 +237,7 @@
 				94AE436A1F3A0F6C00F93E7C /* GamePostTableViewController.swift in Sources */,
 				94AE43471F3A036C00F93E7C /* GamePostTableViewCell.swift in Sources */,
 				94AE436C1F3A0F8400F93E7C /* GamePost.swift in Sources */,
+				94808E3D1F3D08590011CDB3 /* DetailViewController.swift in Sources */,
 				94AE42F81F34E6E500F93E7C /* ViewController.swift in Sources */,
 				94AE42F61F34E6E500F93E7C /* AppDelegate.swift in Sources */,
 			);

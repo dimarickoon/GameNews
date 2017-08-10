@@ -32,7 +32,7 @@ class GamePostTableViewController: UITableViewController {
     var imageUrlArr2 : [String] = ["",""]
     var imageUrl : String = ""
     
-    func postRequest( htmlAdress : String, params:[String : AnyObject]?, threadID: Int, filterParams : [String]?, success: @escaping (_ response: String?, _ response2: String?, _ response3: String?, _ threadID : Int) -> Void)
+    func postRequest( htmlAdress : String, params:[String : AnyObject]?, threadID: Int, filterParams : [String]?, success: @escaping (_ response: [String]?, _ response2: String?, _ response3: String?, _ threadID : Int) -> Void)
     {
         
         Alamofire.request(htmlAdress).responseString { response in
@@ -43,7 +43,7 @@ class GamePostTableViewController: UITableViewController {
                 self.currentWebsite = htmlAdress
                 self.htmlCode = response.result.value! as String
                 print("its here \(self.parseHTMLImage(html: self.htmlCode))")
-                var result : String = self.parseHTML(html: response.result.value! as String)
+                var result : [String] = self.parseHTML(html: response.result.value! as String)
                 var result2 : String = self.parseHTMLTitle(html: response.result.value! as String)
                 var result3 : String = self.parseHTMLIGNRating(html: response.result.value! as String)
                 success(result, result2, result3, threadID)
@@ -55,21 +55,26 @@ class GamePostTableViewController: UITableViewController {
     
     
     
-    func parseHTML(html: String) -> String {
+    func parseHTML(html: String) -> [String] {
         if let doc = Kanna.HTML(html: html, encoding: String.Encoding.utf8) {
             // Search for nodes by CSS selector
+            var showString : String = ""
+            var showS : [String] = []
             for show in doc.css("div[class^='article-content']") {
                 
                 for i in show.css("p") {
                     // Strip the string of surrounding whitespace.
-                    let showString = i.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                    
+                    showS.append(i.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
+                    showString = i.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                     
                     //print("\(showString)\n")
-                    return(showString)
+                    
                 }
+                return(showS)
             }
         }
-        return "error"
+        return ["error"]
     }
     
     func parseHTMLIGNRating(html: String) -> String {
@@ -162,6 +167,18 @@ class GamePostTableViewController: UITableViewController {
         return "error"
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                
+                let object = gamePosts[indexPath.row]
+                
+                (segue.destination as! DetailViewController).detailItem = object
+                
+            }
+        }
+    }
     
     func getImage( catPictureURL : URL!, params:[String : AnyObject]?, threadID: Int, filterParams : [String]?, success: @escaping (_ response: UIImage?, _ threadID : Int) -> Void)
     {
@@ -266,14 +283,14 @@ class GamePostTableViewController: UITableViewController {
     }
     
     
-    func afterResponseText(responseData : String, responseTitle : String, responseRating : String, threadID : Int)
+    func afterResponseText(responseData : [String], responseTitle : String, responseRating : String, threadID : Int)
     {
         
         self.getImage(catPictureURL: URL(string: imageUrlArr2[0])!, params: [:], threadID: threadID, filterParams: nil, success: { (response, threadID) -> Void in
             self.afterResponseImage(responseData: response!, threadID: threadID)
         })
 
-        workingPosts.updateValue(GamePost(postTitle: responseTitle, image: photo4, text: [responseData, "IGN 9/10"], rating: responseRating)!, forKey: threadID)
+        workingPosts.updateValue(GamePost(postTitle: responseTitle, image: photo4, text: responseData, rating: responseRating)!, forKey: threadID)
         
         /*scrapeIGN(htmlAdress: "http://www.ign.com/games/mega-man-legacy-collection-2/ps4-20068173")
         
