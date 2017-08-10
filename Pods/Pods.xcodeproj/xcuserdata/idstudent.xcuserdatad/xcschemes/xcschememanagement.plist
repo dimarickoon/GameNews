@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ImageSlideshow-ImageSlideshow.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ImageSlideshow.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Kanna.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,12 +37,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>797608F2F6CD6CEB5E2F7E2926F3CA33</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DFD671D8D66762AC8CFBB79427203CBE</key>
+		<key>F78C1CFB1095A35CB73CA669ECFFCE66</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FF9DAEB157082D537A10095B51E9F5EA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

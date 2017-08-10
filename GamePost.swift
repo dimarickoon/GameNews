@@ -13,10 +13,12 @@ class GamePost {
     var postTitle : String
     var image : UIImage?
     var text : [String]
+    var rating : String
     
-    init?(postTitle : String, image : UIImage?, text : [String]) {
+    init?(postTitle : String, image : UIImage?, text : [String], rating: String) {
         self.postTitle = postTitle
         self.image = image
         self.text = text
+        self.rating = rating
     }
 }

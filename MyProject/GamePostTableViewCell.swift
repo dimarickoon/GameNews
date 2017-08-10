@@ -14,6 +14,7 @@ class GamePostTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textTextView: UITextView!
     @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var ratingLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

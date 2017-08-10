@@ -21,14 +21,18 @@ class GamePostTableViewController: UITableViewController {
     let photo2 = UIImage(named: "BLands2")
     let photo3 = UIImage(named: "ACU")
     var photo4 : UIImage?
+    let default_wall = UIImage(named: "Default_wallpaper")
     
     var textViewText : String = ""
     var titleText : String = ""
     var workingPosts = [Int : GamePost]()
     var currentWebsite : String = ""
     var htmlCode : String = ""
+    var imageUrlArr1 : [String] = ["",""]
+    var imageUrlArr2 : [String] = ["",""]
+    var imageUrl : String = ""
     
-    func postRequest( htmlAdress : String, params:[String : AnyObject]?, threadID: Int, filterParams : [String]?, success: @escaping (_ response: String?, _ response2: String?, _ threadID : Int) -> Void)
+    func postRequest( htmlAdress : String, params:[String : AnyObject]?, threadID: Int, filterParams : [String]?, success: @escaping (_ response: String?, _ response2: String?, _ response3: String?, _ threadID : Int) -> Void)
     {
         
         Alamofire.request(htmlAdress).responseString { response in
@@ -41,7 +45,8 @@ class GamePostTableViewController: UITableViewController {
                 print("its here \(self.parseHTMLImage(html: self.htmlCode))")
                 var result : String = self.parseHTML(html: response.result.value! as String)
                 var result2 : String = self.parseHTMLTitle(html: response.result.value! as String)
-                success(result, result2, threadID)
+                var result3 : String = self.parseHTMLIGNRating(html: response.result.value! as String)
+                success(result, result2, result3, threadID)
             case .failure(let error):
                 print(error)
             }
@@ -56,15 +61,30 @@ class GamePostTableViewController: UITableViewController {
             for show in doc.css("div[class^='article-content']") {
                 
                 for i in show.css("p") {
-                // Strip the string of surrounding whitespace.
-                let showString = i.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                
-                //print("\(showString)\n")
-                return(showString)
+                    // Strip the string of surrounding whitespace.
+                    let showString = i.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                    
+                    //print("\(showString)\n")
+                    return(showString)
                 }
             }
         }
         return "error"
+    }
+    
+    func parseHTMLIGNRating(html: String) -> String {
+        if let doc = Kanna.HTML(html: html, encoding: String.Encoding.utf8) {
+            // Search for nodes by CSS selector
+            for show in doc.css("span[itemprop^='ratingValue']") {
+                
+                    // Strip the string of surrounding whitespace.
+                    let showString = show.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                    
+                    //print("\(showString)\n")
+                    return(showString)
+            }
+        }
+        return "N/A"
     }
     
     func parseHTMLTitle(html: String) -> String {
@@ -79,22 +99,63 @@ class GamePostTableViewController: UITableViewController {
                 
             }
         }
-        return "error"
+        return "N/A"
     }
     
     func parseHTMLImage(html: String) -> String {
+        imageUrlArr2[0] = "error"
         if let doc = Kanna.HTML(html: html, encoding: String.Encoding.utf8) {
             // Search for nodes by CSS selector
-            for show in doc.css("div[class^='hero-poster']") {
+            for show in doc.css("div[class^='hero-unit-container']") {
                 // Strip the string of surrounding whitespace.
-                let sg : String
-                sg = show["style"]!
-                print("atribute \(sg)")
+                //let sg : String
+                if let sgj = show["style"] {
+                print("atribute \(sgj)")
+                imageUrlArr1 = sgj.characters.split{$0 == "("}.map(String.init)
+                print(imageUrlArr1)
+                imageUrlArr2 = imageUrlArr1[1].characters.split{$0 == ")"}.map(String.init)
+                print(imageUrlArr2)
                 let showString = show.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 
                 print(showString)
                 //print("\(showString)\n")
                 return(showString)
+                }
+                else
+                {
+                    for i in show.css("div[class^='hero-unit-stage']") {
+                        
+                        //hero-poster
+                        if let sg = i["style"] {
+                        print("atribute \(sg)")
+                        imageUrlArr1 = sg.characters.split{$0 == "("}.map(String.init)
+                        print(imageUrlArr1)
+                        imageUrlArr2 = imageUrlArr1[1].characters.split{$0 == ")"}.map(String.init)
+                        print(imageUrlArr2)
+                        let showString = show.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                        
+                        print(showString)
+                        //print("\(showString)\n")
+                        return(showString)
+                        }
+                        else {
+                            for b in i.css("div[class^='hero-post']") {
+                                let bg = b["style"]
+                                print("atribute \(bg)")
+                                imageUrlArr1 = (bg?.characters.split{$0 == "("}.map(String.init))!
+                                print(imageUrlArr1)
+                                imageUrlArr2 = imageUrlArr1[1].characters.split{$0 == ")"}.map(String.init)
+                                print(imageUrlArr2)
+                                let showString = show.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                                
+                                print(showString)
+                                //print("\(showString)\n")
+                               
+                                return(showString)
+                            }
+                        }
+                    }
+                }
                 
             }
         }
@@ -104,6 +165,7 @@ class GamePostTableViewController: UITableViewController {
     
     func getImage( catPictureURL : URL!, params:[String : AnyObject]?, threadID: Int, filterParams : [String]?, success: @escaping (_ response: UIImage?, _ threadID : Int) -> Void)
     {
+        
         let session = URLSession(configuration: .default)
         
         // Define a download task. The download task will download the contents of the URL as a Data object and then you can do what you wish with that data.
@@ -111,6 +173,7 @@ class GamePostTableViewController: UITableViewController {
             
             if let e = error {
                 print("Error downloading cat picture: \(e)")
+                success(self.default_wall, threadID)
             } else {
                 // No errors found.
                 // It would be weird if we didn't have a response, so check for that too.
@@ -123,15 +186,16 @@ class GamePostTableViewController: UITableViewController {
                         // Do something with your image.
                     } else {
                         print("Couldn't get image: Image is nil")
-                        self.photo4 = self.photo2
+                        success(self.default_wall, threadID)
                     }
                 } else {
                     print("Couldn't get response code for some reason")
-                    self.photo4 = self.photo2
+                    success(self.default_wall, threadID)
+                    //self.photo4 = self.photo2
                 }
             }
         }
-        
+
         downloadPicTask.resume()
         
     }
@@ -140,31 +204,59 @@ class GamePostTableViewController: UITableViewController {
     private func loadSamplePosts() {
         
         photo4 = photo2
-        guard let post1 = GamePost(postTitle: "Call of duty : black ops 2", image: photo1, text: ["Oddly for a game so focused on brutality, betrayal, violence, techno-fear and man’s inhumanity to man, generosity is Call of Duty: Black Ops 3’s biggest asset. This is a mountainous all-you-can-eat buffet of a Call of Duty, its steaming heated trays crammed with game modes, options and hidden features. It adds enough to the core gameplay to make it feel like more than just another lazy retread, and it’s easily the best-looking CoD to date.The only problem is that, as with all all youcan-eat buffets, some portions are a lot tastier than others, leaving you wondering whether a little more focus might have created something really exceptional.", "IGN 11/10"]) else {
+        guard let post1 = GamePost(postTitle: "Call of duty : black ops 2", image: photo1, text: ["Oddly for a game so focused on brutality, betrayal, violence, techno-fear and man’s inhumanity to man, generosity is Call of Duty: Black Ops 3’s biggest asset. This is a mountainous all-you-can-eat buffet of a Call of Duty, its steaming heated trays crammed with game modes, options and hidden features. It adds enough to the core gameplay to make it feel like more than just another lazy retread, and it’s easily the best-looking CoD to date.The only problem is that, as with all all youcan-eat buffets, some portions are a lot tastier than others, leaving you wondering whether a little more focus might have created something really exceptional.", "IGN 11/10"], rating: "11.0") else {
             fatalError("Unable to instantiate gamepost1")
         }
-        guard let post2 = GamePost(postTitle: "Borderlands 2", image: photo2, text: ["Amazing graphics!", "IGN 9/10"]) else {
+        /*guard let post2 = GamePost(postTitle: "Borderlands 2", image: photo2, text: ["Amazing graphics!", "IGN 9/10"]) else {
             fatalError("Unable to instantiate gamepost2")
         }
         guard let post3 = GamePost(postTitle: "Assasins creed unity", image: photo3, text: ["Game of the year!", "IGN 12/10"]) else {
             fatalError("Unable to instantiate gamepost3")
         }
-        gamePosts += [post1, post2, post3]
+ */
+        gamePosts += [post1]
         
-        self.postRequest(htmlAdress: "http://www.ign.com/articles/2017/08/07/batman-the-telltale-series-season-2-review", params: [:], threadID: 0, filterParams: nil, success: { (response, response2, threadID) -> Void in
-            self.afterResponseText(responseData: response!, responseTitle: response2!, threadID: threadID)
+        self.postRequest(htmlAdress: "http://www.ign.com/articles/2017/08/04/superhot-vr-review", params: [:], threadID: 0, filterParams: nil, success: { (response, response2, response3, threadID) -> Void in
+            self.afterResponseText(responseData: response!, responseTitle: response2!, responseRating: response3!, threadID: threadID)
         })
-        self.postRequest(htmlAdress: "http://www.ign.com/articles/2017/07/24/splatoon-2-review", params: [:], threadID: 1, filterParams: nil, success: { (response, response2, threadID) -> Void in
-            self.afterResponseText(responseData: response!, responseTitle : response2!, threadID: threadID)
+        self.postRequest(htmlAdress: "http://www.ign.com/articles/2017/07/24/splatoon-2-review", params: [:], threadID: 1, filterParams: nil, success: { (response, response2, response3, threadID) -> Void in
+            self.afterResponseText(responseData: response!, responseTitle: response2!, responseRating: response3!, threadID: threadID)
         })
-        
+        self.postRequest(htmlAdress: "http://www.ign.com/articles/2017/08/01/lone-echo-review", params: [:], threadID: 2, filterParams: nil, success: { (response, response2, response3, threadID) -> Void in
+            self.afterResponseText(responseData: response!, responseTitle: response2!, responseRating: response3!, threadID: threadID)
+        })
+        self.postRequest(htmlAdress: "http://www.ign.com/articles/2017/08/01/overcooked-special-edition-review", params: [:], threadID: 3, filterParams: nil, success: { (response, response2, response3, threadID) -> Void in
+            self.afterResponseText(responseData: response!, responseTitle: response2!, responseRating: response3!, threadID: threadID)
+        })
+        self.postRequest(htmlAdress: "http://www.ign.com/articles/2017/07/29/sega-genesis-flashback-review", params: [:], threadID: 4, filterParams: nil, success: { (response, response2, response3, threadID) -> Void in
+            self.afterResponseText(responseData: response!, responseTitle: response2!, responseRating: response3!, threadID: threadID)
+        })
+        self.postRequest(htmlAdress: "http://www.ign.com/articles/2017/07/27/sundered-review", params: [:], threadID: 5, filterParams: nil, success: { (response, response2, response3, threadID) -> Void in
+            self.afterResponseText(responseData: response!, responseTitle: response2!, responseRating: response3!, threadID: threadID)
+        })
+        self.postRequest(htmlAdress: "http://www.ign.com/articles/2017/07/26/hey-pikmin-review", params: [:], threadID: 6, filterParams: nil, success: { (response, response2, response3, threadID) -> Void in
+            self.afterResponseText(responseData: response!, responseTitle: response2!, responseRating: response3!, threadID: threadID)
+        })
+        self.postRequest(htmlAdress: "http://www.ign.com/articles/2017/07/25/pyre-review", params: [:], threadID: 7, filterParams: nil, success: { (response, response2, response3, threadID) -> Void in
+            self.afterResponseText(responseData: response!, responseTitle: response2!, responseRating: response3!, threadID: threadID)
+        })
+        self.postRequest(htmlAdress: "http://www.ign.com/articles/2017/08/10/gran-turismo-sport-wont-include-microtransactions?abthid=598c6e5b7d5b19230f000007", params: [:], threadID: 8, filterParams: nil, success: { (response, response2, response3, threadID) -> Void in
+            self.afterResponseText(responseData: response!, responseTitle: response2!, responseRating: response3!, threadID: threadID)
+        })
+        self.postRequest(htmlAdress: "http://www.ign.com/articles/2017/07/20/black-the-fall-review", params: [:], threadID: 9, filterParams: nil, success: { (response, response2, response3, threadID) -> Void in
+            self.afterResponseText(responseData: response!, responseTitle: response2!, responseRating: response3!, threadID: threadID)
+        })
         
     }
     
     func afterResponseImage(responseData : UIImage, threadID : Int)
     {
+        /*self.getImage(catPictureURL: URL(string: imageUrlArr2[0])!, params: [:], threadID: threadID, filterParams: nil, success: { (response, threadID) -> Void in
+            self.afterResponseImage(responseData: response!, threadID: threadID)
+        })
+        */
         workingPosts[threadID]?.image = responseData
-        
+        //workingPosts.removeValue(forKey: threadID)
         gamePosts.append(workingPosts[threadID]!)
         
         
@@ -173,14 +265,15 @@ class GamePostTableViewController: UITableViewController {
         }
     }
     
-    func afterResponseText(responseData : String, responseTitle : String, threadID : Int)
+    
+    func afterResponseText(responseData : String, responseTitle : String, responseRating : String, threadID : Int)
     {
         
-        self.getImage(catPictureURL: URL(string: "http://assets1.ignimgs.com/2017/08/04/telltalebatman-enemy-header-1501887356260_960w.jpg")!, params: [:], threadID: threadID, filterParams: nil, success: { (response, threadID) -> Void in
+        self.getImage(catPictureURL: URL(string: imageUrlArr2[0])!, params: [:], threadID: threadID, filterParams: nil, success: { (response, threadID) -> Void in
             self.afterResponseImage(responseData: response!, threadID: threadID)
         })
 
-        workingPosts.updateValue(GamePost(postTitle: responseTitle, image: photo4, text: [responseData, "IGN 9/10"])!, forKey: threadID)
+        workingPosts.updateValue(GamePost(postTitle: responseTitle, image: photo4, text: [responseData, "IGN 9/10"], rating: responseRating)!, forKey: threadID)
         
         /*scrapeIGN(htmlAdress: "http://www.ign.com/games/mega-man-legacy-collection-2/ps4-20068173")
         
@@ -238,7 +331,9 @@ class GamePostTableViewController: UITableViewController {
         cell.titleLabel.text = gamepost.postTitle
         cell.photoImageView.image = gamepost.image
         cell.textTextView.text = gamepost.text[0]
+        cell.ratingLabel.text = gamepost.rating
         return cell
+        
     }
     
 

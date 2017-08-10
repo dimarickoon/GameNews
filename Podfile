@@ -8,4 +8,5 @@ target 'MyProject' do
   # Pods for MyProject
     pod 'Kanna', '~> 2.1.0'
     pod 'Alamofire', '~> 4.4'
+    pod 'ImageSlideshow', '~> 1.3'
 end
