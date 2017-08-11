@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		94808E3D1F3D08590011CDB3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94808E3C1F3D08590011CDB3 /* DetailViewController.swift */; };
+		94808E3F1F3DF1C50011CDB3 /* fakeNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94808E3E1F3DF1C50011CDB3 /* fakeNews.swift */; };
+		94808E411F3DFA0F0011CDB3 /* YouTubePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94808E401F3DFA0F0011CDB3 /* YouTubePost.swift */; };
+		94808E431F3DFB470011CDB3 /* YouTubeTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94808E421F3DFB470011CDB3 /* YouTubeTableTableViewController.swift */; };
+		94808E451F3DFC090011CDB3 /* YouTubeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94808E441F3DFC090011CDB3 /* YouTubeTableViewCell.swift */; };
 		94AE42F61F34E6E500F93E7C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE42F51F34E6E500F93E7C /* AppDelegate.swift */; };
 		94AE42F81F34E6E500F93E7C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE42F71F34E6E500F93E7C /* ViewController.swift */; };
 		94AE42FB1F34E6E500F93E7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94AE42F91F34E6E500F93E7C /* Main.storyboard */; };
@@ -21,6 +25,10 @@
 
 /* Begin PBXFileReference section */
 		94808E3C1F3D08590011CDB3 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		94808E3E1F3DF1C50011CDB3 /* fakeNews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fakeNews.swift; sourceTree = "<group>"; };
+		94808E401F3DFA0F0011CDB3 /* YouTubePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubePost.swift; sourceTree = "<group>"; };
+		94808E421F3DFB470011CDB3 /* YouTubeTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubeTableTableViewController.swift; sourceTree = "<group>"; };
+		94808E441F3DFC090011CDB3 /* YouTubeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubeTableViewCell.swift; sourceTree = "<group>"; };
 		94AE42F21F34E6E500F93E7C /* MyProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94AE42F51F34E6E500F93E7C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94AE42F71F34E6E500F93E7C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -71,11 +79,15 @@
 			children = (
 				94AE436B1F3A0F8400F93E7C /* GamePost.swift */,
 				94AE43691F3A0F6C00F93E7C /* GamePostTableViewController.swift */,
+				94808E401F3DFA0F0011CDB3 /* YouTubePost.swift */,
 				94808E3C1F3D08590011CDB3 /* DetailViewController.swift */,
 				94AE42F51F34E6E500F93E7C /* AppDelegate.swift */,
 				94AE42F71F34E6E500F93E7C /* ViewController.swift */,
 				94AE43461F3A036C00F93E7C /* GamePostTableViewCell.swift */,
 				94AE42F91F34E6E500F93E7C /* Main.storyboard */,
+				94808E441F3DFC090011CDB3 /* YouTubeTableViewCell.swift */,
+				94808E421F3DFB470011CDB3 /* YouTubeTableTableViewController.swift */,
+				94808E3E1F3DF1C50011CDB3 /* fakeNews.swift */,
 				94AE42FC1F34E6E500F93E7C /* Assets.xcassets */,
 				94AE42FE1F34E6E500F93E7C /* LaunchScreen.storyboard */,
 				94AE43011F34E6E600F93E7C /* Info.plist */,
@@ -236,10 +248,14 @@
 			files = (
 				94AE436A1F3A0F6C00F93E7C /* GamePostTableViewController.swift in Sources */,
 				94AE43471F3A036C00F93E7C /* GamePostTableViewCell.swift in Sources */,
+				94808E3F1F3DF1C50011CDB3 /* fakeNews.swift in Sources */,
+				94808E431F3DFB470011CDB3 /* YouTubeTableTableViewController.swift in Sources */,
 				94AE436C1F3A0F8400F93E7C /* GamePost.swift in Sources */,
+				94808E451F3DFC090011CDB3 /* YouTubeTableViewCell.swift in Sources */,
 				94808E3D1F3D08590011CDB3 /* DetailViewController.swift in Sources */,
 				94AE42F81F34E6E500F93E7C /* ViewController.swift in Sources */,
 				94AE42F61F34E6E500F93E7C /* AppDelegate.swift in Sources */,
+				94808E411F3DFA0F0011CDB3 /* YouTubePost.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

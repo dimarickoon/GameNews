@@ -10,12 +10,19 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var UIImageView: UIImageView!
+    @IBOutlet weak var detailItemTitleLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var UIImageView: UIImageView!
+ 
+    var detailItem: GamePost? {
+        didSet {
+            // Update the view.
+            self.configureView()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        configureView()
         // Do any additional setup after loading the view.
     }
 
@@ -27,18 +34,15 @@ class DetailViewController: UIViewController {
     func configureView() {
         // Update the user interface for the detail item.
         var gamepost = detailItem as! GamePost
-        
-        titleLabel.text = gamepost.postTitle
-        
-        textView.text = gamepost.text[0]
-        
-        UIImageView = gamepost.
-    
-    var detailItem: GamePost? {
-        didSet {
-            // Update the view.
-            self.configureView()
+        detailItemTitleLabel?.text = gamepost.postTitle
+        textView?.text = ""
+        for i in gamepost.text {
+            //textView?.text = gamepost.text[0] + gamepost.text[1] + gamepost.text[2]
+            textView?.text = (textView?.text)! + i
         }
+        
+        UIImageView?.image = gamepost.image
+         
     }
     
 
